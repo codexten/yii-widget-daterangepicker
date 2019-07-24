@@ -25,6 +25,7 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                 'cancelLabel' => 'Clear',
             ],
         ];
+
         $this->template = '
             <div class="input-group">
                 <span class="input-group-addon">
