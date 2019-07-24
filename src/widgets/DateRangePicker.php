@@ -6,6 +6,17 @@ use yii\web\JsExpression;
 
 class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
 {
+    // ranges
+    const RANGE_TODAY = 'today';
+    const RANGE_YESTERDAY = 'yesterday';
+    const RANGE_LAST_7_DAYS = 'last_7_days';
+    const RANGE_LAST_30_DAYS = 'last_30_days';
+    const RANGE_LAST_6_MONTHS = 'last_6_months';
+    const RANGE_THIS_MONTH = 'this_month';
+    const RANGE_LAST_MONTH = 'last_month';
+
+    public $defaultRange;
+
     public function init()
     {
         $this->pluginOptions = [
@@ -26,6 +37,44 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
             ],
         ];
 
+        if ($this->defaultRange) {
+            $startDate = 'moment()';
+            $endDate = 'moment()';
+            switch ($this->defaultRange) {
+                case self::RANGE_YESTERDAY:
+                    $startDate = "moment().subtract(1, 'days')";
+                    $endDate = "moment().subtract(1, 'days')";
+                    break;
+                case self::RANGE_LAST_7_DAYS:
+                    $startDate = "moment().subtract(6, 'days')";
+                    break;
+                case self::RANGE_LAST_30_DAYS:
+                    $startDate = "moment().subtract(30, 'days')";
+                    break;
+                case self::RANGE_LAST_6_MONTHS:
+                    $startDate = "moment().subtract(6, 'months')";
+                    break;
+                case self::RANGE_THIS_MONTH:
+                    $startDate = "moment().startOf('month')";
+                    $endDate = "moment().endOf('month')";
+                    break;
+                case self::RANGE_LAST_MONTH:
+                    $startDate = "moment().subtract(1, 'month').startOf('month')";
+                    $endDate = "moment().subtract(1, 'month').endOf('month')";
+                    break;
+
+            }
+            $this->pluginOptions['startDate'] = '03/01/2014';
+            $this->pluginOptions['endDate'] = '03/01/2014';
+//            $this->pluginOptions['startDate'] = new JsExpression($startDate);
+//            $this->pluginOptions['endDate'] = new JsExpression($endDate);
+//            $this->callback=new JsExpression("
+//                function (start, end){
+//                    console.log(start.format('MMMM D, YYYY') )
+//                }
+//            ");
+        }
+
         $this->template = '
             <div class="input-group">
                 <span class="input-group-addon">
@@ -36,6 +85,20 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
         ';
 
         parent::init();
+    }
+
+    public function run()
+    {
+        parent::run();
+        if ($this->defaultRange) {
+            $js = <<<JS
+//            // $('#{$this->options['id']}').data('daterangepicker').setStartDate({$this->pluginOptions['startDate']});
+            $('#{$this->options['id']}').data('daterangepicker').setStartDate('03/01/2014');
+            $('#{$this->options['id']}').data('daterangepicker').setEndDate('03/31/2014');
+JS;
+            $this->getView()->registerJs($js);
+        }
+
     }
 
 }
