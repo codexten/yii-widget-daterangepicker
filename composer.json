@@ -1,0 +1,21 @@
+{
+  "name": "codexten/yii-widget-daterangepicker",
+  "type": "yii2-extension",
+  "description": " daterangepicker widget for yii 2.0 or higher",
+  "require": {
+    "kartik-v/yii2-widget-daterangepicker": "@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "codexten\\yii\\widgets\\": "src/widgets"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    },
+    "sconfig-plugin": {
+      "bootstrap3": "config/daterangepicker.php"
+    }
+  }
+}
