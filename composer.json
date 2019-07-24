@@ -3,7 +3,7 @@
   "type": "yii2-extension",
   "description": " daterangepicker widget for yii 2.0 or higher",
   "require": {
-    "kartik-v/yii2-widget-daterangepicker": "@dev"
+    "jino5577/yii2-date-range-picker": "*"
   },
   "autoload": {
     "psr-4": {
