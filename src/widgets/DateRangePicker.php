@@ -33,6 +33,7 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                 {input}
             </div>
         ';
+
         parent::init();
     }
 
