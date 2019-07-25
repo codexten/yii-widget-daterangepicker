@@ -3,7 +3,8 @@
   "type": "yii2-extension",
   "description": " daterangepicker widget for yii 2.0 or higher",
   "require": {
-    "jino5577/yii2-date-range-picker": "*"
+    "jino5577/yii2-date-range-picker": "*",
+    "fightbulc/moment": "*"
   },
   "autoload": {
     "psr-4": {

@@ -66,6 +66,8 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
             }
             $this->pluginOptions['startDate'] = '03/01/2014';
             $this->pluginOptions['endDate'] = '03/01/2014';
+//            $this->options['value'] = '01/25/2019 - 07/25/2019';
+
 //            $this->pluginOptions['startDate'] = new JsExpression($startDate);
 //            $this->pluginOptions['endDate'] = new JsExpression($endDate);
 //            $this->callback=new JsExpression("
@@ -86,19 +88,4 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
 
         parent::init();
     }
-
-    public function run()
-    {
-        parent::run();
-        if ($this->defaultRange) {
-            $js = <<<JS
-//            // $('#{$this->options['id']}').data('daterangepicker').setStartDate({$this->pluginOptions['startDate']});
-            $('#{$this->options['id']}').data('daterangepicker').setStartDate('03/01/2014');
-            $('#{$this->options['id']}').data('daterangepicker').setEndDate('03/31/2014');
-JS;
-            $this->getView()->registerJs($js);
-        }
-
-    }
-
 }
