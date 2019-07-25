@@ -2,6 +2,7 @@
 
 namespace codexten\yii\widgets;
 
+use Moment\Moment;
 use yii\web\JsExpression;
 
 class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
@@ -38,43 +39,35 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
         ];
 
         if ($this->defaultRange) {
-            $startDate = 'moment()';
-            $endDate = 'moment()';
+            $startDate = new Moment();
+            $endDate = new Moment();
             switch ($this->defaultRange) {
                 case self::RANGE_YESTERDAY:
-                    $startDate = "moment().subtract(1, 'days')";
-                    $endDate = "moment().subtract(1, 'days')";
-                    break;
+                    $startDate = $startDate->subtractDays(1);
+                    $endDate = $endDate->subtractDays(1);
                 case self::RANGE_LAST_7_DAYS:
-                    $startDate = "moment().subtract(6, 'days')";
+                    $startDate = $startDate->subtractDays(6);
                     break;
                 case self::RANGE_LAST_30_DAYS:
-                    $startDate = "moment().subtract(30, 'days')";
+                    $startDate = $startDate->subtractDays(30);
                     break;
                 case self::RANGE_LAST_6_MONTHS:
-                    $startDate = "moment().subtract(6, 'months')";
+                    $startDate = $startDate->subtractMonths(6);
                     break;
                 case self::RANGE_THIS_MONTH:
-                    $startDate = "moment().startOf('month')";
-                    $endDate = "moment().endOf('month')";
+                    $startDate = $startDate->startOf('month');
+                    $endDate = $endDate->endOf('month');
                     break;
                 case self::RANGE_LAST_MONTH:
-                    $startDate = "moment().subtract(1, 'month').startOf('month')";
-                    $endDate = "moment().subtract(1, 'month').endOf('month')";
+                    $startDate = $startDate->subtractMonths(1)->startOf('month');
+                    $endDate = $endDate->subtractMonths(1)->endOf('month');
                     break;
 
             }
-            $this->pluginOptions['startDate'] = '03/01/2014';
-            $this->pluginOptions['endDate'] = '03/01/2014';
-//            $this->options['value'] = '01/25/2019 - 07/25/2019';
+            $startDate = $startDate->format('m/d/Y');
+            $endDate = $endDate->format('m/d/Y');
 
-//            $this->pluginOptions['startDate'] = new JsExpression($startDate);
-//            $this->pluginOptions['endDate'] = new JsExpression($endDate);
-//            $this->callback=new JsExpression("
-//                function (start, end){
-//                    console.log(start.format('MMMM D, YYYY') )
-//                }
-//            ");
+            $this->options['value'] = "{$startDate} - {$endDate}";
         }
 
         $this->template = '
