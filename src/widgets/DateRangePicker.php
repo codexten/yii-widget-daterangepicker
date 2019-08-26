@@ -16,7 +16,9 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
     const RANGE_THIS_MONTH = 'this_month';
     const RANGE_LAST_MONTH = 'last_month';
 
-    public $defaultRange;
+    public $defaultRange = null;
+    public $startDate = null;
+    public $endDate = null;
 
     public function init()
     {
@@ -68,6 +70,21 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
             $endDate = $endDate->format('m/d/Y');
 
             $this->options['value'] = "{$startDate} - {$endDate}";
+        } else {
+            if ($this->startDate && is_callable($this->startDate)) {
+                $this->startDate = call_user_func($this->startDate, (new Moment()));
+                if ($this->startDate instanceof Moment) {
+                    $this->startDate = $this->startDate->format('m/d/Y');
+                }
+            }
+
+            if ($this->endDate && is_callable($this->endDate)) {
+                $this->endDate = call_user_func($this->endDate, (new Moment()));
+                if ($this->endDate instanceof Moment) {
+                    $this->endDate = $this->endDate->format('m/d/Y');
+                }
+            }
+            $this->options['value'] = "{$this->startDate} - {$this->endDate}";
         }
 
         $this->template = '
