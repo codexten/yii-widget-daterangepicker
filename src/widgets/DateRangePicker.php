@@ -84,7 +84,9 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                     $this->endDate = $this->endDate->format('m/d/Y');
                 }
             }
-            $this->options['value'] = "{$this->startDate} - {$this->endDate}";
+            if ($this->startDate && $this->endDate) {
+                $this->options['value'] = "{$this->startDate} - {$this->endDate}";
+            }
         }
 
         $this->template = '
