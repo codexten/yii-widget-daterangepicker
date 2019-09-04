@@ -25,8 +25,8 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
         $this->pluginOptions = [
             'ranges' => new JsExpression("
                 {
-                    'Today': [moment(), moment()],
                     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Today': [moment(), moment()],
                     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                     'Last 6 Months': [moment().subtract(6, 'month'), moment()],
@@ -38,6 +38,7 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
             'locale' => [
                 'cancelLabel' => 'Clear',
             ],
+            'endDate' => null
         ];
 
         if ($this->defaultRange) {
@@ -68,6 +69,8 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
             }
             $startDate = $startDate->format('m/d/Y');
             $endDate = $endDate->format('m/d/Y');
+            $this->pluginOptions['startDate'] = $startDate;
+            $this->pluginOptions['endDate'] = $endDate;
 
             $this->options['value'] = "{$startDate} - {$endDate}";
         } else {
@@ -85,6 +88,8 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                 }
             }
             if ($this->startDate && $this->endDate) {
+                $this->pluginOptions['startDate'] = $this->startDate;
+                $this->pluginOptions['endDate'] = $this->endDate;
                 $this->options['value'] = "{$this->startDate} - {$this->endDate}";
             }
         }
@@ -99,5 +104,20 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
         ';
 
         parent::init();
+    }
+
+    public function run()
+    {
+        parent::run();
+
+        if ($this->pluginOptions['endDate'] == null) {
+            $js = <<<JS
+    $('#{$this->options['id']}').on('cancel.daterangepicker', function(ev, picker) {
+          $(this).val('');
+    });
+JS;
+            $this->getView()->registerJs($js);
+        }
+
     }
 }
