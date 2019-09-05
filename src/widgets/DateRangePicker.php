@@ -12,7 +12,6 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
     const RANGE_YESTERDAY = 'yesterday';
     const RANGE_LAST_7_DAYS = 'last_7_days';
     const RANGE_LAST_30_DAYS = 'last_30_days';
-    const RANGE_LAST_2_MONTHS = 'last_2_months';
     const RANGE_LAST_6_MONTHS = 'last__months';
     const RANGE_THIS_MONTH = 'this_month';
     const RANGE_LAST_MONTH = 'last_month';
@@ -30,7 +29,6 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                     'Today': [moment(), moment()],
                     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'Last 2 Months': [moment().subtract(2, 'month'), moment()],
                     'Last 6 Months': [moment().subtract(6, 'month'), moment()],
                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
@@ -55,9 +53,6 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
                     break;
                 case self::RANGE_LAST_30_DAYS:
                     $startDate = $startDate->subtractDays(30);
-                    break;
-                case self::RANGE_LAST_2_MONTHS:
-                    $startDate = $startDate->subtractMonths(2);
                     break;
                 case self::RANGE_LAST_6_MONTHS:
                     $startDate = $startDate->subtractMonths(6);
