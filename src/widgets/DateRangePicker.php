@@ -12,7 +12,7 @@ class DateRangePicker extends \jino5577\daterangepicker\DateRangePicker
     const RANGE_YESTERDAY = 'yesterday';
     const RANGE_LAST_7_DAYS = 'last_7_days';
     const RANGE_LAST_30_DAYS = 'last_30_days';
-    const RANGE_LAST_6_MONTHS = 'last_6_months';
+    const RANGE_LAST_6_MONTHS = 'last__months';
     const RANGE_THIS_MONTH = 'this_month';
     const RANGE_LAST_MONTH = 'last_month';
 
